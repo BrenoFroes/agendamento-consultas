@@ -23,6 +23,12 @@ module.exports = {
       env: {
         jest: true
       }
+    },
+    {
+      files: ['src/***/**/*.vue'],
+      rules: {
+        'vue/multi-word-component-names': 0
+      }
     }
   ]
 }
