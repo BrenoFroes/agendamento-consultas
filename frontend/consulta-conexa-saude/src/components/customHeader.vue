@@ -1,6 +1,6 @@
 <template>
-  <div class="top py-3 pl-2 shadow p-3 mb-5 bg-white fixed-top w-100">
-    <img :src="svgLogo" width="114px" height="23.26px" alt="Logo Conexa">
+  <div class="top fixed-top">
+    <img :src="svgLogo" class="img-responsive" width="114px" height="23.26px" alt="Logo Conexa">
   </div>
 </template>
 
@@ -14,4 +14,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.top{
+  background: #FFFFFB;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  padding: 17px;
+}
+@media(max-width: 767px){
+  img{
+    margin: auto;
+  }
+  .top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 </style>

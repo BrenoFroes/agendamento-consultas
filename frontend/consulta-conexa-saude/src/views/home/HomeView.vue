@@ -3,7 +3,7 @@
     <CustomHeader></CustomHeader>
     <div class="container-fluid content">
       <h1>Consultas</h1>
-      <img :src="svgBlank" width="520px" height="360px" class="img-illus" alt="Illustração">
+      <img :src="svgBlank" width="520px" height="360px" class="img-illus img-responsive" alt="Illustração">
       <div class="bottom">
         <button type="submit" class="btn btn-outline-custom">Ajuda</button>
         <button type="submit" class="btn btn-custom">Agendar consulta</button>
@@ -44,6 +44,7 @@ export default {
   .img-illus{
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
   }
   .custom-input{
     border: 0;
@@ -63,7 +64,7 @@ export default {
     font-style: italic;
   }
   .btn-custom{
-    max-width: 154px;
+    max-width: 160px;
     background: #2E50D4;
     color: white;
     width: 100%;
@@ -119,6 +120,14 @@ export default {
     .form-login{
       max-width: 272px;
       padding: 0;
+    }
+    .content{
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: space-between;
+      padding: 64px 32px 32px 32px;
     }
   }
 </style>
