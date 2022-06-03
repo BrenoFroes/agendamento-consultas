@@ -29,6 +29,12 @@ module.exports = {
       rules: {
         'vue/multi-word-component-names': 0
       }
+    },
+    {
+      files: ['src/***/**/*.vue'],
+      rules: {
+        'vue/no-async-promise-executor': 0
+      }
     }
   ]
 }

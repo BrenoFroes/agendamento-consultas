@@ -2,7 +2,7 @@ import LoginModule from './pages/Login'
 
 export default [
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: LoginModule
   }

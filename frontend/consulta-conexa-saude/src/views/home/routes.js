@@ -2,7 +2,7 @@ import HomeView from './HomeView'
 
 export default [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
     component: HomeView
   }

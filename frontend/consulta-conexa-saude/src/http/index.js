@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import services from './services'
+
 Vue.use(VueResource)
 
 const http = Vue.http
@@ -11,5 +12,10 @@ Object.keys(services).map(service => (
   services[service] = Vue.resource('', {}, services[service])
 ))
 
-export { http }
+const setBearerToken = token => {
+  // eslint-disable-next-line
+  http.headers.common["Authorization"] = `Bearer ${token}`
+}
+
+export { http, setBearerToken }
 export default services

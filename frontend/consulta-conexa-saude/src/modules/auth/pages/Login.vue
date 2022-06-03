@@ -1,29 +1,43 @@
 <template>
-  <div class="container">
-    <form @submit.prevent="submit()">
-      <div class="card my-20">
-        <div class="card-header">
-          <h1 class="text-xl text-red-600 font-bold uppercase">Login</h1>
+  <div class='container-fluid p-0'>
+    <CustomHeader></CustomHeader>
+    <div class="container vh-100 d-flex flex-column align-items-center justify-content-center">
+      <div class="row w-100">
+        <div class="col col-6 d-flex flex-column justify-content-start align-items-center">
+          <h1 class="mb-5">Faça Login</h1>
+          <img :src="svgIllustration" width="337px" height="265px" alt="Illustração">
         </div>
-        <div class="card-body my-10">
-          <div class="form-group">
-            <input required v-model="form.email" placeholder="E-mail" type="email" class="form-control">
-            <input required v-model="form.password" placeholder="Password" type="password" class="form-control">
-          </div>
+        <div class="col col-6">
+          <form @submit.prevent='submit()'>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <input required v-model='form.email' placeholder='E-mail' type='email' class='form-control' id="exampleInputEmail1">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input required v-model='form.password' placeholder='Password' type='password' class='form-control' id='"exampleInputPassword1"'>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
         </div>
-        <button class="btn btn-primary">Send</button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex'
+import CustomHeader from '@/components/customHeader.vue'
 export default {
   data: () => ({
     form: {
       email: '',
       password: ''
-    }
+    },
+    svgIllustration: require('@/assets/svg/illustration.svg')
   }),
   methods: {
     ...mapActions('auth', ['ActionDoLogin']),
@@ -35,6 +49,19 @@ export default {
         alert(err.body ? err.body.message : 'Não foi possível fazer o login')
       }
     }
-  }
+  },
+  components: { CustomHeader }
 }
 </script>
+<style scoped>
+  h1 {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 60px;
+    text-align: center;
+    letter-spacing: -2.5px;
+    color: #1C307F;
+  }
+</style>

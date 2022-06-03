@@ -1,13 +1,12 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
 import routes from './routes'
+import beforeEach from './beforeEach'
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
+const router = new Router({ routes })
+
+router.beforeEach(beforeEach)
 
 export default router
