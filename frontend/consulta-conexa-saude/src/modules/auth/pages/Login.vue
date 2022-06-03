@@ -3,11 +3,11 @@
     <CustomHeader></CustomHeader>
     <div class="container-fluid vh-100 d-flex flex-column align-items-center justify-content-center">
       <div class="row w-100">
-        <div class="col col-6 d-flex flex-column justify-content-start align-items-center">
+        <div class="col col-12 col-md-6  d-flex flex-column justify-content-start align-items-center">
           <h1>Faça Login</h1>
-          <img :src="svgIllustration" width="337px" height="265px" alt="Illustração">
+          <img :src="svgIllustration" width="337px" height="265px" class="img-desk" alt="Illustração">
         </div>
-        <div class="col col-6 d-flex flex-column justify-content-center align-items-center">
+        <div class="col col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
           <form @submit.prevent='submit()' class="form-login">
             <div class="form-group">
               <label for="exampleInputEmail1">Email</label>
@@ -75,13 +75,16 @@ export default {
 <style scoped>
   h1 {
     font-style: normal;
-    font-weight: 700;
+    font-weight: bold;
     font-size: 52px;
     line-height: 60px;
     text-align: center;
     letter-spacing: -2.5px;
     color: #1C307F;
     margin-bottom: 67px;
+  }
+  .img-desk{
+    display: block;
   }
   .custom-input{
     border: 0;
@@ -102,6 +105,7 @@ export default {
   }
   .form-login{
     max-width: 235px;
+    width: 100%;
     padding: 90px 0;
   }
   .btn-custom{
@@ -126,5 +130,17 @@ export default {
   }
   .input-password{
     margin-top: 32px;
+  }
+  @media(max-width: 767px){
+    h1 {
+      font-size: 32px;
+    }
+    .img-desk{
+      display: none;
+    }
+    .form-login{
+      max-width: 272px;
+      padding: 0;
+    }
   }
 </style>
