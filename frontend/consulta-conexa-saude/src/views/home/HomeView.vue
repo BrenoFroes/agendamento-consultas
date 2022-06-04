@@ -3,6 +3,12 @@
     <CustomHeader></CustomHeader>
     <div class="container-fluid content">
       <h1>Consultas</h1>
+      <div class="container">
+        {{ consultations.length }} consultas agendadas
+        <span v-for="item in consultations" :key="item.id">
+          <ItemConsultation :consultation="item"></ItemConsultation>
+        </span>
+      </div>
       <img :src="svgBlank" width="520px" height="360px" class="img-illus img-responsive" alt="Illustração">
       <div class="bottom">
         <button type="submit" class="btn btn-outline-custom">Ajuda</button>
@@ -14,12 +20,26 @@
 
 <script>
 import CustomHeader from '@/components/customHeader.vue'
+import ItemConsultation from '@/components/itemConsultation.vue'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'HomeView',
-  components: { CustomHeader },
+  components: { CustomHeader, ItemConsultation },
   data: () => ({
     svgBlank: require('@/assets/svg/blank-state.svg')
-  })
+  }),
+  mounted () {
+    this.ActionFindConsultations()
+  },
+  updated () {
+    this.ActionFindConsultations()
+  },
+  computed: {
+    ...mapState('consultations', ['consultations'])
+  },
+  methods: {
+    ...mapActions('consultations', ['ActionFindConsultations'])
+  }
 }
 </script>
 <style scoped>
