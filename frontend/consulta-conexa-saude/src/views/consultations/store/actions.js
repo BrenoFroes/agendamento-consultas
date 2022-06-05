@@ -9,6 +9,17 @@ export const ActionFindConsultations = ({ commit }) => (
   })
 )
 
-export const ActionAddConsultation = (context, payload) => {
-  services.consultations.addConsultation(payload)
+export const ActionFindPatients = ({ commit }) => (
+  services.consultations.findPatients().then(res => {
+    commit(types.SET_PATIENTS, res.body)
+  })
+)
+
+export const ActionAddConsultation = async (context, payload) => {
+  const res = await services.consultations.addConsultation(payload)
+  if (res.status === 201) {
+    return true
+  } else {
+    return false
+  }
 }

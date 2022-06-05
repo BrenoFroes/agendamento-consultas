@@ -1,18 +1,38 @@
 <template>
   <div class="container-fluid p-0">
-    <CustomHeader></CustomHeader>
+    <CustomHeader :name="name"></CustomHeader>
     <div class="container-fluid content">
       <h1>Consultas</h1>
-      <div class="container">
-        {{ consultations.length }} consultas agendadas
-        <span v-for="item in consultations" :key="item.id">
+      <div v-if="consultations.length > 0" class="container content-list">
+        <h2>{{ consultations.length }} consultas agendadas</h2>
+        <h3 v-if="success">Consulta agendada ✔</h3>
+        <span v-for="item in consultations" :key="item.id" class="list">
           <ItemConsultation :consultation="item"></ItemConsultation>
         </span>
       </div>
-      <img :src="svgBlank" width="520px" height="360px" class="img-illus img-responsive" alt="Illustração">
+      <img v-else :src="svgBlank" width="520px" height="360px" class="img-illus img-responsive" alt="Illustração">
       <div class="bottom">
         <button type="submit" class="btn btn-outline-custom">Ajuda</button>
-        <button type="submit" class="btn btn-custom">Agendar consulta</button>
+        <b-button v-b-modal.modal-1 class="btn btn-custom">Agendar consulta</b-button>
+
+        <b-modal ref="my-modal" id="modal-1" hide-footer title="Agendar consulta">
+          <form @submit.prevent='sendConsultation()' class="my-form">
+            <div class="form-group input-patient">
+              <label for="pacientes">Paciente:</label>
+              <select id="pacientes" name="pacientList" class="custom-input" v-model="form.patientId" required>
+                <option v-for="item in patients" :key="item.id" :value="item.id">
+                {{ item.first_name }}</option>
+              </select>
+            </div>
+            <div class="form-group input-patient">
+              <label for="datepicker" class="mt-4">Data: </label>
+              <b-form-datepicker id="datepicker" v-model="date" required class="custom-input"></b-form-datepicker>
+              <label for="datepicker" class="mt-4">Horário: </label>
+              <b-form-timepicker v-model="hour" required locale="en" class="custom-input"></b-form-timepicker>
+            </div>
+            <b-button class="mt-4 ml-auto btn btn-custom" type="submit">Agendar</b-button>
+          </form>
+        </b-modal>
       </div>
     </div>
   </div>
@@ -26,19 +46,62 @@ export default {
   name: 'HomeView',
   components: { CustomHeader, ItemConsultation },
   data: () => ({
-    svgBlank: require('@/assets/svg/blank-state.svg')
+    svgBlank: require('@/assets/svg/blank-state.svg'),
+    date: '',
+    hour: '',
+    form: {
+      patientId: '',
+      date: ''
+    },
+    success: false,
+    name: ''
   }),
   mounted () {
     this.ActionFindConsultations()
+    this.ActionFindPatients()
+    this.getAuthUser()
   },
   updated () {
     this.ActionFindConsultations()
   },
   computed: {
-    ...mapState('consultations', ['consultations'])
+    ...mapState('consultations', ['consultations']),
+    ...mapState('consultations', ['patients']),
+    ...mapState('auth', ['user'])
   },
   methods: {
-    ...mapActions('consultations', ['ActionFindConsultations'])
+    ...mapActions('consultations', ['ActionFindConsultations', 'ActionFindPatients', 'ActionAddConsultation']),
+    ...mapActions('auth', ['ActionGetUser']),
+    async sendConsultation () {
+      this.success = false
+      try {
+        const formatDate = this.date
+        const formatHour = this.hour
+        const time = `${formatDate},${formatHour}`
+        const chosenDate = new Date(time)
+        this.form.date = chosenDate
+        if (await this.ActionAddConsultation(JSON.stringify(this.form))) {
+          this.$refs['my-modal'].hide()
+          this.success = true
+        } else {
+          alert('Não foi possível agendar a consulta')
+        }
+      } catch (err) {
+        alert(err.body ? err.body.message : 'Não foi possível agendar a consulta')
+      }
+    },
+    async getAuthUser () {
+      this.name = await this.ActionGetUser()
+    },
+    showModal () {
+      this.$refs['my-modal'].show()
+    },
+    hideModal () {
+      this.$refs['my-modal'].hide()
+    },
+    toggleModal () {
+      this.$refs['my-modal'].toggle('#toggle-btn')
+    }
   }
 }
 </script>
@@ -51,6 +114,16 @@ export default {
     justify-content: space-between;
     padding: 134px 48px 48px 48px;
   }
+  .content-list{
+    max-width: 520px;
+    width: 100%;
+  }
+  .my-form{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: start;
+  }
   h1 {
     font-family: 'Nunito';
     font-style: normal;
@@ -61,12 +134,31 @@ export default {
     letter-spacing: -2.5px;
     color: #1C307F;
   }
+  h2 {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #535754;
+    margin: 0 auto 24px auto;
+  }
+  h3 {
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    color: #27ff76;
+    margin: 0 auto 24px auto;
+  }
   .img-illus{
     margin-left: auto;
     margin-right: auto;
     width: 100%;
   }
   .custom-input{
+    width: 100%;
     border: 0;
     border-radius: 0;
     border-bottom: 2px solid #DAD2D0;
@@ -82,6 +174,16 @@ export default {
   }
   .custom-input:-ms-input-placeholder {
     font-style: italic;
+  }
+  .input-patient{
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+  }
+  .input-hour{
+    margin-top: 32px;
   }
   .btn-custom{
     max-width: 160px;
@@ -99,18 +201,29 @@ export default {
     justify-content: center;
     text-align: center;
     letter-spacing: 1px;
+    border: 0px;
   }
   .bottom{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding-bottom: 24px;
   }
   .btn-custom:hover{
-    color: white;
+    background-color: transparent;
+    color: #2E50D4;
+    border: 2px solid #2E50D4;
+    box-shadow: none;
+  }
+  .btn-custom:hover, .btn-custom:focus{
+    background-color: transparent;
+    color: #2E50D4;
+    border: 2px solid #2E50D4;
+    box-shadow: none;
   }
   .btn-outline-custom{
-    max-width: 75px;
+    max-width: 116px;
     background-color: transparent;
     color: #2E50D4;
     border: 2px solid #2E50D4;

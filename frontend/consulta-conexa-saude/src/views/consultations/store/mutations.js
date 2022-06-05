@@ -4,5 +4,8 @@ import * as types from './mutations-types'
 export default {
   [types.SET_CONSULTATIONS] (state, payload) {
     state.consultations = payload
+  },
+  [types.SET_PATIENTS] (state, payload) {
+    state.patients = payload
   }
 }

@@ -19,6 +19,16 @@
       "id": 4,
       "patientId": 3,
       "date": "Thu Feb 11 2021 13:00:00 GMT-0300 (Brasilia Standard Time)"
+    },
+    {
+      "patientId": 1,
+      "date": "2022-06-09T02:59:00.000Z",
+      "id": 5
+    },
+    {
+      "patientId": 1,
+      "date": "2022-06-09T02:59:00.000Z",
+      "id": 6
     }
   ],
   "patients": [
