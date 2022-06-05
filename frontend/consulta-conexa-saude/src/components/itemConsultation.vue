@@ -2,9 +2,14 @@
   <div class="content-consultation">
     <div class="text">
       <h2>{{ consultation.patient.first_name }} {{ consultation.patient.last_name }}</h2>
-      <p>{{ data }}</p>
+      <p>{{ date }}</p>
     </div>
-    <button @click.prevent="" class="btn btn-custom">Atender</button>
+    <button v-if="this.step == 0" @click.prevent="next()" class="btn btn-custom">Atender</button>
+    <button v-if="this.step == 1" @click.prevent="next()" class="btn btn-custom btn-loading">
+      Atendendo &nbsp;
+      <img :src="svgLoading" width="16px" height="16px" alt="Carregando">
+    </button>
+    <button v-if="this.step == 2" class="btn btn-custom btn-finished">Finalizado</button>
   </div>
 </template>
 
@@ -12,7 +17,9 @@
 export default {
   name: 'ItemConsultation',
   data: () => ({
-    data: ''
+    date: '',
+    step: 0,
+    svgLoading: require('../assets/svg/loading.svg')
   }),
   props: {
     consultation: { type: Object, required: true }
@@ -21,7 +28,12 @@ export default {
     const data = new Date(this.consultation.date)
     const formatData = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`
     const formatHour = `${data.getHours()}:${data.getMinutes()}`
-    this.data = `${formatData} às ${formatHour}`
+    this.date = `${formatData} às ${formatHour}`
+  },
+  methods: {
+    next () {
+      this.step = this.step + 1
+    }
   }
 }
 </script>
@@ -49,6 +61,18 @@ export default {
     justify-content: center;
     text-align: center;
     letter-spacing: 1px;
+  }
+  .btn-custom:focus{
+    color: white;
+  }
+  .btn-custom:hover{
+    color: white;
+  }
+  .btn-loading{
+    background-color: #F28080;
+  }
+  .btn-finished{
+    background-color: #273856;
   }
   h2 {
     font-family: 'Nunito';

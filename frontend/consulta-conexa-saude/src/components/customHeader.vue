@@ -3,19 +3,32 @@
     <img :src="svgLogo" class="img-responsive" width="114px" height="23.26px" alt="Logo Conexa">
     <div v-if="name" class="right">
       <h1>Olá, Dr. {{ name }}</h1>
-      <button type="submit" class="btn btn-outline-custom">Sair</button>
+      <button @click.prevent="logout()" class="btn btn-outline-custom">Sair</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'CustomHeader',
   data: () => ({
-    svgLogo: require('../assets/svg/logo-conexa.svg')
+    svgLogo: require('../assets/svg/logo-conexa.svg'),
+    stage: 0
   }),
   props: {
     name: { type: String, required: false }
+  },
+  methods: {
+    ...mapActions('auth', ['ActionSignOut']),
+    async logout () {
+      try {
+        await this.ActionSignOut()
+        this.$router.push({ name: 'login' })
+      } catch (err) {
+        alert(err.body ? err.body.message : 'Não foi possível fazer deslogar')
+      }
+    }
   }
 }
 </script>

@@ -12,7 +12,7 @@
       </div>
       <img v-else :src="svgBlank" width="520px" height="360px" class="img-illus img-responsive" alt="Illustração">
       <div class="bottom">
-        <button type="submit" class="btn btn-outline-custom">Ajuda</button>
+        <button v-b-modal.modal-2 class="btn btn-outline-custom">Ajuda</button>
         <b-button v-b-modal.modal-1 class="btn btn-custom">Agendar consulta</b-button>
 
         <b-modal ref="my-modal" id="modal-1" hide-footer title="Agendar consulta">
@@ -32,6 +32,18 @@
             </div>
             <b-button class="mt-4 ml-auto btn btn-custom" type="submit">Agendar</b-button>
           </form>
+        </b-modal>
+
+        <b-modal ref="my-modal-2" id="modal-2" title="Ajuda">
+          <ol>
+            <li>
+              Clique em "Agendar" no canto inferior direito para agendar uma consulta, com data e horário
+            </li>
+            <li>
+              Clique em "Atender" ou "Atendendo" para atualizar o status da consulta em questão
+            </li>
+          </ol>
+          <p>Obs: Se ainda estiver com problemas entre em contato com o email contato@suporte.com</p>
         </b-modal>
       </div>
     </div>
@@ -117,6 +129,11 @@ export default {
   .content-list{
     max-width: 520px;
     width: 100%;
+  }
+  .modal-content > button[type=button] {
+    background: none !important;
+    background-color: transparent !important;
+    border: none !important;
   }
   .my-form{
     display: flex;
@@ -239,6 +256,10 @@ export default {
     justify-content: center;
     text-align: center;
     letter-spacing: 1px;
+  }
+  .btn-outline-custom:hover, .btn-outline-custom:focus {
+    background: #2E50D4;
+    color: white;
   }
   .input-password{
     margin-top: 32px;
