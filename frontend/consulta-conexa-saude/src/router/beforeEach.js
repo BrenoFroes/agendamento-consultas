@@ -1,7 +1,7 @@
 import store from '../store'
 
 export default async (to, from, next) => {
-  document.title = `${to.name} - Conexa Saúde`
+  document.title = `Conexa Saúde - ${to.name}`
   if (to.name !== 'login' && !store.getters['auth/hasToken']) {
     try {
       await store.dispatch('auth/ActionCheckToken')

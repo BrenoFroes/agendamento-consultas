@@ -16,7 +16,7 @@
             <div class="form-group input-password">
               <label for="exampleInputPassword1">
                 Senha
-                <img :src="svgHelp" width="16px" height="16px" v-b-popover.hover.top="'- Letra maiúscula, caracteres especiais e alfanuméricos.'" title="Sua senha deve ter:" alt="Ajuda">
+                <img :src="svgHelp" width="16px" height="16px" v-b-popover.hover.right="'- Letra maiúscula, caracteres especiais e alfanuméricos.'" title="Sua senha deve ter:" alt="Ajuda">
               </label>
               <div class="input-group mt-4 custom-input">
                   <input v-if="showPassword" required v-model='form.password' placeholder='Digite sua senha' type='text' class='form-control border-0' id='"exampleInputPassword1"' />

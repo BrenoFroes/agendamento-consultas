@@ -11,7 +11,7 @@
         </span>
       </div>
       <img v-else :src="svgBlank" width="520px" height="360px" class="img-illus img-responsive" alt="Illustração">
-      <div class="bottom">
+      <div class="bottom fixed-bottom">
         <button v-b-modal.modal-2 class="btn btn-outline-custom">Ajuda</button>
         <b-button v-b-modal.modal-1 class="btn btn-custom">Agendar consulta</b-button>
 
@@ -127,7 +127,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: start;
-    justify-content: space-between;
+    justify-content: start;
     padding: 134px 48px 48px 48px;
   }
   .content-list{
@@ -154,6 +154,7 @@ export default {
     text-align: center;
     letter-spacing: -2.5px;
     color: #1C307F;
+    margin-bottom: 32px;
   }
   h2 {
     font-family: 'Nunito';
@@ -268,9 +269,14 @@ export default {
   .input-password{
     margin-top: 32px;
   }
+  .bottom{
+    padding: 17px 48px 17px 48px;
+    background: #FFFFFB;
+    box-shadow: 4px -4px 12px rgba(0, 0, 0, 0.05);
+  }
   @media(max-width: 767px){
     h1 {
-      font-size: 32px;
+      font-size: 28px;
     }
     .img-desk{
       display: none;
@@ -284,8 +290,11 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: start;
-      justify-content: space-between;
-      padding: 64px 32px 32px 32px;
+      justify-content: start;
+      padding: 96px 32px 32px 32px;
+    }
+    .bottom{
+      padding: 17px 32px 17px 32px;
     }
   }
 </style>

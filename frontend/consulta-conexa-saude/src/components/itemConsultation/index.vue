@@ -97,4 +97,9 @@ export default {
     line-height: 20px;
     color: #575453;
   }
+  @media(max-width: 767px){
+    .btn-custom{
+      max-width: 150px;
+    }
+  }
 </style>
