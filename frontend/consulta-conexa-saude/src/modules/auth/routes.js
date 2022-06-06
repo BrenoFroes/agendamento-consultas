@@ -1,4 +1,4 @@
-import LoginModule from './pages/Login'
+import LoginModule from './pages/Login/index'
 
 export default [
   {

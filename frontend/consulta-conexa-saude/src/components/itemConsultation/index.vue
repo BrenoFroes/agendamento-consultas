@@ -19,7 +19,7 @@ export default {
   data: () => ({
     date: '',
     step: 0,
-    svgLoading: require('../assets/svg/loading.svg')
+    svgLoading: require('../../assets/svg/loading.svg')
   }),
   props: {
     consultation: { type: Object, required: true }
@@ -33,6 +33,13 @@ export default {
   methods: {
     next () {
       this.step = this.step + 1
+    }
+  },
+  computed: {
+    searchQuery: {
+      get () {
+        return this.consultation
+      }
     }
   }
 }

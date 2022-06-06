@@ -36,7 +36,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
-import CustomHeader from '@/components/customHeader.vue'
+import CustomHeader from '@/components/customHeader/index.vue'
 export default {
   data: () => ({
     form: {

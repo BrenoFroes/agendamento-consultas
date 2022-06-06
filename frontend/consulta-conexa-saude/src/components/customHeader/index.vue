@@ -13,7 +13,7 @@ import { mapActions } from 'vuex'
 export default {
   name: 'CustomHeader',
   data: () => ({
-    svgLogo: require('../assets/svg/logo-conexa.svg'),
+    svgLogo: require('../../assets/svg/logo-conexa.svg'),
     stage: 0
   }),
   props: {
@@ -27,6 +27,13 @@ export default {
         this.$router.push({ name: 'login' })
       } catch (err) {
         alert(err.body ? err.body.message : 'Não foi possível fazer deslogar')
+      }
+    }
+  },
+  computed: {
+    searchQuery: {
+      get () {
+        return this.name
       }
     }
   }

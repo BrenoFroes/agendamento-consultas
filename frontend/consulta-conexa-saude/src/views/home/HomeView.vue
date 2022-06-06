@@ -51,14 +51,14 @@
 </template>
 
 <script>
-import CustomHeader from '@/components/customHeader.vue'
-import ItemConsultation from '@/components/itemConsultation.vue'
+import CustomHeader from '@/components/customHeader/index.vue'
+import ItemConsultation from '@/components/itemConsultation/index.vue'
 import { mapActions, mapState } from 'vuex'
 export default {
   name: 'HomeView',
   components: { CustomHeader, ItemConsultation },
   data: () => ({
-    svgBlank: require('@/assets/svg/blank-state.svg'),
+    svgBlank: require('../../assets/svg/blank-state.svg'),
     date: '',
     hour: '',
     form: {
@@ -103,7 +103,11 @@ export default {
       }
     },
     async getAuthUser () {
-      this.name = await this.ActionGetUser()
+      try {
+        this.name = await this.ActionGetUser()
+      } catch (err) {
+        console.error(err)
+      }
     },
     showModal () {
       this.$refs['my-modal'].show()
